@@ -1,6 +1,6 @@
-import { Survey } from "../index"
 import repl from "repl"
-import questions from "./questions"
+import { Survey } from "../index"
+import questions from "./questions.json"
 
 const validates = {
   DATE: answer => {
