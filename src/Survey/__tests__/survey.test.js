@@ -29,7 +29,9 @@ _()
     if (!pass) return
 
     survey.ask()
-    survey.capture("aconitum")
+    survey.capture("abc")
+    pass = survey.lastQuestion.title === "What type of flower you want to buy?"
+    if (!pass) return
 
     pass = survey.isValid() === false
     if (!pass) return

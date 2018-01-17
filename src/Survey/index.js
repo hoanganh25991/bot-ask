@@ -26,7 +26,7 @@ export class Survey {
     if (!hasQues) return null
 
     const firstRemain = remainQuestions[0]
-    this.lastQuestion = firstRemain
+    this.lastQuestion = { ...firstRemain }
 
     return firstRemain
   }
@@ -40,7 +40,16 @@ export class Survey {
     }
 
     lastQuestion.answer = answer
+    this.updateInQuestions()
     return this
+  }
+
+  updateInQuestions() {
+    const { questions, lastQuestion } = this
+    if (!lastQuestion) return
+    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
+    if (!matchedQuestion) return
+    matchedQuestion.answer = lastQuestion.answer
   }
 
   getLastQuestion() {

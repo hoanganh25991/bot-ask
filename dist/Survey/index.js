@@ -26,6 +26,13 @@ class Survey {
     this.validates = validates
   }
 
+  static recovery(state, validates = {}) {
+    const { questions, lastQuestion } = state
+    const survey = new Survey(questions, validates)
+    survey.lastQuestion = lastQuestion
+    return survey
+  }
+
   setValidationMethods(newValidates) {
     const { validates: lastValidates } = this
     const validates = _extends({}, lastValidates, newValidates)
