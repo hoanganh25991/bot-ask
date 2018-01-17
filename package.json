@@ -15,32 +15,9 @@
   "scripts": {
     "precommit": "lint-staged",
     "start": "yarn storeEnv && yarn start:dev",
-    "start:dev": "nodemon dist/bin/www",
-    "test": "babel-node scripts/run-test",
-    "build": "babel-node scripts/deploy.js",
-    "migration": "babel-node scripts/migration.js",
-    "storeEnv":"babel-node scripts/storeEnv.js"
+    "test": "babel-node scripts/run-test"
   },
-  "dependencies": {
-    "@sendgrid/mail": "^6.1.4",
-    "body-parser": "~1.18.2",
-    "cookie-parser": "~1.4.3",
-    "cors": "^2.8.4",
-    "debug": "~2.6.9",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "fs-extra": "^4.0.3",
-    "helmet": "^3.9.0",
-    "jade": "~1.11.0",
-    "jsonwebtoken": "^8.1.0",
-    "moment": "^2.19.3",
-    "morgan": "~1.9.0",
-    "mysql2": "^1.5.1",
-    "nodemailer": "^4.4.1",
-    "sequelize": "^4.26.0",
-    "serve-favicon": "~2.4.5"
-  },
+  "dependencies": {},
   "lint-staged": {
     "*.js": [
       "prettier --write --no-semi --print-width 120",
