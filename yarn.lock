@@ -373,9 +373,9 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bot-survey@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/bot-survey/-/bot-survey-0.0.2.tgz#9dfc56e53bbd4d1ef0b4c5afb43e4608ab373a00"
+bot-survey@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/bot-survey/-/bot-survey-0.0.3.tgz#9a2b363265fd12143fe6781c78aa300d3037ef6f"
 
 brace-expansion@^1.1.7:
   version "1.1.8"
