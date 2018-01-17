@@ -1,0 +1,24 @@
+[
+  {
+    "title":"What's your first name?",
+    "isValid":"DATE",
+    "key": "name",
+    "required": true
+  },
+  {
+    "title":"What type of flower you want to buy?",
+    "choices":[
+      {
+        "title":"tulip"
+      },
+      {
+        "title":"rose"
+      },
+      {
+        "title":"orange"
+      }
+    ],
+    "isValid": "FLOWERS",
+    "key": "flower"
+  }
+]
