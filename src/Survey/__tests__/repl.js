@@ -1,11 +1,10 @@
 import { Survey } from "../index"
 import repl from "repl"
-import surveyInfo from "./survey"
+import questions from "./questions"
 
-const { questions } = surveyInfo
 const validates = {
   DATE: answer => {
-    return true
+    return answer === "anh"
   }
 }
 

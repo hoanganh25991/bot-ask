@@ -6,6 +6,12 @@ export class Survey {
     this.validates = validates
   }
 
+  setValidationMethods(newValidates) {
+    const { validates: lastValidates } = this
+    const validates = { ...lastValidates, ...newValidates }
+    this.validates = validates
+  }
+
   ask() {
     const { questions } = this
     const remainQuestions = questions.filter(ques => typeof ques.answer === "undefined")
@@ -22,18 +28,12 @@ export class Survey {
     let { lastQuestion } = this
 
     if (!lastQuestion) {
-      _("[capture] No question asked to capture")
+      _("[capture] No asked question to capture")
       return this
     }
 
     lastQuestion.answer = answer
     return this
-  }
-
-  setValidationMethods(newValidates) {
-    const { validates: lastValidates } = this
-    const validates = { ...lastValidates, ...newValidates }
-    this.validates = validates
   }
 
   getLastQuestion() {
@@ -44,7 +44,7 @@ export class Survey {
     const { lastQuestion } = this
 
     if (!lastQuestion) {
-      _("[isValid] No question asked to validate")
+      _("[isValid] No asked question to validate")
       return true
     }
 
@@ -73,14 +73,14 @@ export class Survey {
       const isFunc = typeof validationMethod === "function"
       if (isFunc) return validationMethod(answer)
 
-      _(`[isValid] isValid not a function`)
+      _(`[isValid] ${name}: Not a function`)
       return true
     }
 
     const isFunc = typeof isValid === "function"
     if (isFunc) return isValid(answer)
 
-    _(`[isValid] isValid not a function`)
+    _(`[isValid] isValid: Not a function`)
     return true
   }
 }
