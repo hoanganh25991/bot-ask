@@ -52,6 +52,14 @@ export class Survey {
     matchedQuestion.answer = lastQuestion.answer
   }
 
+  resetLastAsk() {
+    const { questions, lastQuestion } = this
+    if (!lastQuestion) return
+    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
+    if (!matchedQuestion) return
+    delete matchedQuestion.answer
+  }
+
   getLastQuestion() {
     return this.lastQuestion
   }
