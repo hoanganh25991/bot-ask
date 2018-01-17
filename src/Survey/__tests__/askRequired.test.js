@@ -11,9 +11,9 @@ _()
   let pass = true
 
   try {
-    const REQUIRED_QUES = true
+    const SHOULD_ASK = true
     const survey = new Survey(questions)
-    const ques = survey.ask(REQUIRED_QUES)
+    const ques = survey.ask(SHOULD_ASK)
     pass = ques === null
     if (!pass) return
   } catch (err) {

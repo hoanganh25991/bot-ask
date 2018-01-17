@@ -11,19 +11,19 @@ _()
   let pass = true
 
   try {
-    const REQUIRED_QUES = true
+    const SHOULD_ASK = true
     const survey = new Survey(questions3)
 
-    const requiredQues = survey.ask(REQUIRED_QUES)
+    const shouldAskQues = survey.ask(SHOULD_ASK)
     survey.capture("anh")
-    pass = requiredQues.title === "What's your first name?"
-    if (!pass) return _("[requiredQues]", requiredQues)
+    pass = shouldAskQues.title === "What's your first name?"
+    if (!pass) return _("[requiredQues]", shouldAskQues)
 
     const normalQues = survey.ask()
     pass = normalQues.title === "What type of flower you want to buy?"
     if (!pass) return _("[normalQues]", normalQues)
 
-    const ques = survey.ask(REQUIRED_QUES)
+    const ques = survey.ask(SHOULD_ASK)
     pass = ques === null
     if (!pass) return _("[ques]", ques)
   } catch (err) {

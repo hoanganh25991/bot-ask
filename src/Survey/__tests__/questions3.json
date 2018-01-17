@@ -3,7 +3,7 @@
     "title":"What's your first name?",
     "isValid":"DATE",
     "key": "name",
-    "required": true
+    "shouldAsk": true
   },
   {
     "title":"What type of flower you want to buy?",

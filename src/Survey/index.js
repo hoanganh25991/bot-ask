@@ -19,12 +19,12 @@ export class Survey {
     this.validates = validates
   }
 
-  ask(requiredQues = false) {
+  ask(shouldAskQues = false) {
     const { questions } = this
     const remainQuestions = questions.filter(ques => {
       const noAns = typeof ques.answer === "undefined"
-      const required = requiredQues ? ques.required : true
-      return noAns && required
+      const shouldAsk = shouldAskQues ? ques.shouldAsk : true
+      return noAns && shouldAsk
     })
 
     const hasQues = remainQuestions.length > 0
