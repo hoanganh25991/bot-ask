@@ -1,7 +1,8 @@
 [
   {
     "title":"What's your first name?",
-    "isValid":"DATE"
+    "isValid":"DATE",
+    "key": "name"
   },
   {
     "title":"What type of flower you want to buy?",
@@ -16,6 +17,7 @@
         "title":"orange"
       }
     ],
-    "isValid": "FLOWERS"
+    "isValid": "FLOWERS",
+    "key": "flower"
   }
 ]

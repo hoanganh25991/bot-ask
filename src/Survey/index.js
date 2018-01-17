@@ -99,4 +99,13 @@ export class Survey {
     _(`[isValid] isValid: Not a function`)
     return true
   }
+
+  extractData() {
+    const { questions } = this
+    return questions.reduce((carry, ques) => {
+      const { answer, key } = ques
+      carry[key] = answer
+      return carry
+    }, {})
+  }
 }
