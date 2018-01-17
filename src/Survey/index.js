@@ -2,7 +2,7 @@ const _ = console.log
 
 export class Survey {
   constructor(questions, validates = {}) {
-    this.questions = questions
+    this.questions = questions.map(ques => ({ ...ques }))
     this.validates = validates
   }
 
