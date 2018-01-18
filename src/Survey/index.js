@@ -19,11 +19,11 @@ export class Survey {
     this.validates = validates
   }
 
-  ask(shouldAskQues = false) {
+  ask(shouldCheck = false) {
     const { questions } = this
     const remainQuestions = questions.filter(ques => {
       const noAns = typeof ques.answer === "undefined"
-      const shouldAsk = shouldAskQues ? ques.shouldAsk : true
+      const shouldAsk = shouldCheck ? ques.shouldAsk : true
       return noAns && shouldAsk
     })
 
@@ -34,6 +34,14 @@ export class Survey {
     this.lastQuestion = { ...firstRemain }
 
     return firstRemain
+  }
+
+  askField(fieldTitle) {
+    const { questions } = this
+    const matchedQues = questions.filter(ques => ques.fieldTitle && ques.fieldTitle.includes(fieldTitle))[0]
+    if (!matchedQues) return null
+    this.lastQuestion = { ...matchedQues }
+    return matchedQues
   }
 
   capture(answer) {
