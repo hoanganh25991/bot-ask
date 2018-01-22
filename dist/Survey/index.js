@@ -1,8 +1,28 @@
+"use strict"
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+})
+
+var _extends =
+  Object.assign ||
+  function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
 const _ = console.log
 
-export class Survey {
+class Survey {
   constructor(questions, validates = {}) {
-    this.questions = questions.map(ques => ({ ...ques }))
+    this.questions = questions.map(ques => _extends({}, ques))
     this.validates = validates
   }
 
@@ -15,33 +35,20 @@ export class Survey {
 
   setValidationMethods(newValidates) {
     const { validates: lastValidates } = this
-    const validates = { ...lastValidates, ...newValidates }
+    const validates = _extends({}, lastValidates, newValidates)
     this.validates = validates
   }
 
-  ask(shouldCheck = false) {
+  ask() {
     const { questions } = this
-    const remainQuestions = questions.filter(ques => {
-      const noAns = typeof ques.answer === "undefined"
-      const shouldAsk = shouldCheck ? ques.shouldAsk : true
-      return noAns && shouldAsk
-    })
-
+    const remainQuestions = questions.filter(ques => typeof ques.answer === "undefined")
     const hasQues = remainQuestions.length > 0
     if (!hasQues) return null
 
     const firstRemain = remainQuestions[0]
-    this.lastQuestion = { ...firstRemain }
+    this.lastQuestion = firstRemain
 
     return firstRemain
-  }
-
-  askField(fieldTitle) {
-    const { questions } = this
-    const matchedQues = questions.filter(ques => ques.fieldTitle && ques.fieldTitle.includes(fieldTitle))[0]
-    if (!matchedQues) return null
-    this.lastQuestion = { ...matchedQues }
-    return matchedQues
   }
 
   capture(answer) {
@@ -53,24 +60,7 @@ export class Survey {
     }
 
     lastQuestion.answer = answer
-    this.updateInQuestions()
     return this
-  }
-
-  updateInQuestions() {
-    const { questions, lastQuestion } = this
-    if (!lastQuestion) return
-    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
-    if (!matchedQuestion) return
-    matchedQuestion.answer = lastQuestion.answer
-  }
-
-  resetLastAsk() {
-    const { questions, lastQuestion } = this
-    if (!lastQuestion) return
-    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
-    if (!matchedQuestion) return
-    delete matchedQuestion.answer
   }
 
   getLastQuestion() {
@@ -120,13 +110,5 @@ export class Survey {
     _(`[isValid] isValid: Not a function`)
     return true
   }
-
-  extractData() {
-    const { questions } = this
-    return questions.reduce((carry, ques) => {
-      const { answer, key } = ques
-      carry[key] = answer
-      return carry
-    }, {})
-  }
 }
+exports.Survey = Survey
