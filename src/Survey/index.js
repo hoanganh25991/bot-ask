@@ -71,6 +71,7 @@ export class Survey {
     const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
     if (!matchedQuestion) return
     delete matchedQuestion.answer
+    delete lastQuestion.answer
   }
 
   getLastQuestion() {
