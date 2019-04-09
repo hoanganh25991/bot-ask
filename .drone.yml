@@ -3,12 +3,14 @@ name: default
 
 steps:
   - name: test
-    image: node:10.13-apline
+    # image: node:10.13-apline
+    image: node
     commands:
       - yarn install
       - yarn test
   - name: build
-    image: node:10.13-apline
+    # image: node:10.13-apline
+    image: node
     commands:
       - yarn install
       - yarn build
