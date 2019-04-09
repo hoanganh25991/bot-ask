@@ -1,0 +1,14 @@
+kind: pipeline
+name: default
+
+steps:
+- name: Test
+  image: node:10.13-alpine
+  commands:
+  - yarn install
+  - yarn test
+
+- name: Build
+  image: node:10.13-alpine
+  commands:
+  - yarn build

@@ -32,11 +32,13 @@ function _asyncToGenerator(fn) {
   }
 }
 
-const questions = [
+const questions3 = [
   {
     title: "What's your first name?",
     isValid: "DATE",
-    key: "name"
+    key: "name",
+    shouldAsk: true,
+    fieldTitle: "Name"
   },
   {
     title: "What type of flower you want to buy?",
@@ -52,7 +54,8 @@ const questions = [
       }
     ],
     isValid: "FLOWERS",
-    key: "flower"
+    key: "flower",
+    fieldTitle: "Flower"
   }
 ]
 
@@ -66,37 +69,21 @@ _asyncToGenerator(function*() {
   let pass = true
 
   try {
-    const validates = {
-      DATE: function(answer) {
-        return answer === "anh"
-      },
-      FLOWERS: function(answer) {
-        const flowers = ["tulip", "rose", "orange"]
-        return flowers.includes(answer)
-      }
-    }
+    const SHOULD_ASK = true
+    const survey = new _index.Survey(questions3)
 
-    const survey = new _index.Survey(questions, validates)
-    survey.ask()
+    const shouldAskQues = survey.ask(SHOULD_ASK)
     survey.capture("anh")
+    pass = shouldAskQues.title === "What's your first name?"
+    if (!pass) return _("[requiredQues]", shouldAskQues)
 
-    pass = survey.isValid() === true
-    if (!pass) return
+    const normalQues = survey.ask()
+    pass = normalQues.title === "What type of flower you want to buy?"
+    if (!pass) return _("[normalQues]", normalQues)
 
-    survey.ask()
-    survey.capture("abc")
-    pass = survey.lastQuestion.title === "What type of flower you want to buy?"
-    if (!pass) return
-
-    pass = survey.isValid() === false
-    if (!pass) return
-
-    // Check if question be MODIFIED
-    questions.forEach(function(ques) {
-      const hasAns = typeof ques.answer !== "undefined"
-      // Expect question DOESNT HAVE ANS
-      pass = pass && !hasAns
-    })
+    const ques = survey.ask(SHOULD_ASK)
+    pass = ques === null
+    if (!pass) return _("[ques]", ques)
   } catch (err) {
     _("[ERR]", err)
     pass = false

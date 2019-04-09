@@ -2,7 +2,9 @@
   {
     "title":"What's your first name?",
     "isValid":"DATE",
-    "key": "name"
+    "key": "name",
+    "shouldAsk": true,
+    "fieldTitle": "Name"
   },
   {
     "title":"What type of flower you want to buy?",
@@ -18,6 +20,7 @@
       }
     ],
     "isValid": "FLOWERS",
-    "key": "flower"
+    "key": "flower",
+    "fieldTitle": "Flower"
   }
 ]

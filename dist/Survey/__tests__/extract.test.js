@@ -32,7 +32,7 @@ function _asyncToGenerator(fn) {
   }
 }
 
-const questions = [
+const questions2 = [
   {
     title: "What's your first name?",
     isValid: "DATE",
@@ -60,43 +60,26 @@ const _ = console.log
 
 _()
 _asyncToGenerator(function*() {
-  const TEST_CASE = "Survey Ask & capture"
+  const TEST_CASE = "Survey Extract"
   const PASS = `\x1b[42m[PASS]\x1b[0m ${TEST_CASE}`
   const FAIL = `\x1b[41m[FAIL]\x1b[0m ${TEST_CASE}`
   let pass = true
 
   try {
-    const validates = {
-      DATE: function(answer) {
-        return answer === "anh"
-      },
-      FLOWERS: function(answer) {
-        const flowers = ["tulip", "rose", "orange"]
-        return flowers.includes(answer)
-      }
-    }
+    const survey = new _index.Survey(questions2)
+    _("[survey]", survey)
 
-    const survey = new _index.Survey(questions, validates)
     survey.ask()
     survey.capture("anh")
 
-    pass = survey.isValid() === true
-    if (!pass) return
-
     survey.ask()
-    survey.capture("abc")
-    pass = survey.lastQuestion.title === "What type of flower you want to buy?"
-    if (!pass) return
+    survey.capture("tulip")
 
-    pass = survey.isValid() === false
-    if (!pass) return
+    const surveyData = survey.extractData()
+    _("[surveyData]", surveyData)
 
-    // Check if question be MODIFIED
-    questions.forEach(function(ques) {
-      const hasAns = typeof ques.answer !== "undefined"
-      // Expect question DOESNT HAVE ANS
-      pass = pass && !hasAns
-    })
+    pass = surveyData.name === "anh"
+    if (!pass) return
   } catch (err) {
     _("[ERR]", err)
     pass = false

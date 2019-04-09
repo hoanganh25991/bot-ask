@@ -39,16 +39,29 @@ class Survey {
     this.validates = validates
   }
 
-  ask() {
+  ask(shouldCheck = false) {
     const { questions } = this
-    const remainQuestions = questions.filter(ques => typeof ques.answer === "undefined")
+    const remainQuestions = questions.filter(ques => {
+      const noAns = typeof ques.answer === "undefined"
+      const shouldAsk = shouldCheck ? ques.shouldAsk : true
+      return noAns && shouldAsk
+    })
+
     const hasQues = remainQuestions.length > 0
     if (!hasQues) return null
 
     const firstRemain = remainQuestions[0]
-    this.lastQuestion = firstRemain
+    this.lastQuestion = _extends({}, firstRemain)
 
     return firstRemain
+  }
+
+  askField(fieldTitle) {
+    const { questions } = this
+    const matchedQues = questions.filter(ques => ques.fieldTitle && ques.fieldTitle.includes(fieldTitle))[0]
+    if (!matchedQues) return null
+    this.lastQuestion = _extends({}, matchedQues)
+    return matchedQues
   }
 
   capture(answer) {
@@ -60,7 +73,25 @@ class Survey {
     }
 
     lastQuestion.answer = answer
+    this.updateInQuestions()
     return this
+  }
+
+  updateInQuestions() {
+    const { questions, lastQuestion } = this
+    if (!lastQuestion) return
+    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
+    if (!matchedQuestion) return
+    matchedQuestion.answer = lastQuestion.answer
+  }
+
+  resetLastAsk() {
+    const { questions, lastQuestion } = this
+    if (!lastQuestion) return
+    const matchedQuestion = questions.filter(ques => ques.title === lastQuestion.title)[0]
+    if (!matchedQuestion) return
+    delete matchedQuestion.answer
+    delete lastQuestion.answer
   }
 
   getLastQuestion() {
@@ -109,6 +140,15 @@ class Survey {
 
     _(`[isValid] isValid: Not a function`)
     return true
+  }
+
+  extractData() {
+    const { questions } = this
+    return questions.reduce((carry, ques) => {
+      const { answer, key } = ques
+      carry[key] = answer
+      return carry
+    }, {})
   }
 }
 exports.Survey = Survey

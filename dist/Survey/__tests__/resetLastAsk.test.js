@@ -66,37 +66,14 @@ _asyncToGenerator(function*() {
   let pass = true
 
   try {
-    const validates = {
-      DATE: function(answer) {
-        return answer === "anh"
-      },
-      FLOWERS: function(answer) {
-        const flowers = ["tulip", "rose", "orange"]
-        return flowers.includes(answer)
-      }
-    }
-
-    const survey = new _index.Survey(questions, validates)
+    const survey = new _index.Survey(questions)
     survey.ask()
     survey.capture("anh")
 
-    pass = survey.isValid() === true
-    if (!pass) return
-
+    survey.resetLastAsk()
     survey.ask()
-    survey.capture("abc")
-    pass = survey.lastQuestion.title === "What type of flower you want to buy?"
+    pass = survey.lastQuestion.title === "What's your first name?"
     if (!pass) return
-
-    pass = survey.isValid() === false
-    if (!pass) return
-
-    // Check if question be MODIFIED
-    questions.forEach(function(ques) {
-      const hasAns = typeof ques.answer !== "undefined"
-      // Expect question DOESNT HAVE ANS
-      pass = pass && !hasAns
-    })
   } catch (err) {
     _("[ERR]", err)
     pass = false
